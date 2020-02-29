@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hr.dao.UsersMapper">
+<!-- 	<select id="queryAll" resultType="com.hr.entity.Users"> -->
+	<select id="queryAll" resultType="users">
+		select * from users
+	</select>
+	
+	<select id="queryOne" parameterType="int" resultType="users">
+		select * from users where uid = #{uid}
+	</select>
+	
+	<select id="queryLike" parameterType="string" resultType="users">
+		select * from users where uname like concat('%',#{uname},'%')
+	</select>
+	
+	<select id="queryByAge" parameterType="int" resultType="users">
+		<!-- select * from users where age &lt; #{age} -->
+		<!-- 使用CDATA对sql语句中特殊的符号进行转译  -->
+		<![CDATA[
+			select * from users where age < #{age}
+		]]>
+	</select>
+	
+	<!-- 如果参数传递的是实体类，那么sql语句中占位符的名字必须和实体类的属性名一致 -->
+	<insert id="insert" parameterType="users">
+	<!-- 
+		selectKey节点用来查询添加后生成的主键值
+		resultType指定实体类中的主键属性名
+		resultType指定主键属性的类型
+		order指定selectKey中的sql语句是在insert语句之前执行还是之后执行
+	 -->
+		<selectKey keyProperty="uid" resultType="int" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into users values(null,#{uname},#{age},#{sex},#{usid})
+	</insert>
+	
+	<update id="update" parameterType="users">
+		update users
+			set
+				uname = #{uname},
+				age = #{age},
+				sex = #{sex},
+				usid = #{usid}
+			where 
+				uid = #{uid}
+	</update>
+	
+	
+	<delete id="delete" parameterType="int">
+		delete from users where uid = #{uid}
+	</delete>
+
+</mapper>

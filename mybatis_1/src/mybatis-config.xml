@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 引入数据库连接信息的资源文件db.properties -->
+	<properties resource="db.properties"></properties>
+
+	<!-- 给实体类取别名，方法实体映射文件中进行配置  -->
+	<typeAliases>
+		<typeAlias type="com.hr.entity.Users" alias="users"/>
+	</typeAliases>
+
+
+	<!-- 配置数据库的连接信息 -->
+	<environments default="mysql">
+		<environment id="mysql">
+			<!-- 配置事务方式 -->
+			<transactionManager type="jdbc"></transactionManager>
+			<!-- 配置数据源
+				type属性的值:
+				POOLED:使用mybatis内部提供的一个简单的连接池
+				UNPOOLED:不使用连接池
+				JNDI:使用外部容器提供的连接池
+			 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 引入实体映射文件 -->
+	<mappers>
+		<mapper resource="com/hr/entity/UsersMapper.xml" />
+	</mappers>
+	
+</configuration>
