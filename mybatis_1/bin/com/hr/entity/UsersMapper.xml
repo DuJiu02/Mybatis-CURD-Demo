@@ -4,6 +4,20 @@
 
 
 <mapper namespace="com.hr.dao.UsersMapper">
+	<!-- resultMap方法 -->
+	<resultMap type="users" id="usersMap">
+		<id property="uid" column="uid"/>
+		<result property="uname" column="uname"/>
+		<result property="age" column="age"/>
+		<result property="sex" column="sex"/>
+		<result property="usid" column="usid"/>
+	</resultMap>
+
+	<select id="queryAll0" resultMap="usersMap">
+		select * from users
+	</select>
+	
+	
 <!-- 	<select id="queryAll" resultType="com.hr.entity.Users"> -->
 	<select id="queryAll" resultType="users">
 		select * from users

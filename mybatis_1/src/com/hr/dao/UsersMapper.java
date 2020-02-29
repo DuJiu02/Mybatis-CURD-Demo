@@ -1,5 +1,9 @@
 package com.hr.dao;
 
-public class UsersMapper {
+import java.util.List;
 
+import com.hr.entity.Users;
+
+public interface UsersMapper {
+	public List<Users> queryAll0();
 }

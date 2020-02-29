@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.hr.dao.UsersMapper;
 import com.hr.entity.Users;
 
 public class Test1 {
@@ -22,8 +23,17 @@ public class Test1 {
 		
 		//使用session进行增删改查
 		//查询全部
-		//List<Users> list = session.selectList("com.hr.dao.UsersMapper.queryAll");
-		//System.out.println(list);
+		
+//		resultMap基本写法
+		UsersMapper mapper = session.getMapper(UsersMapper.class);
+		List<Users> list = mapper.queryAll0();
+		System.out.println(list);
+		
+		
+		
+//		List<Users> list = session.selectList("com.hr.dao.UsersMapper.queryAll");
+//		System.out.println(list);
+		
 		
 		//查询单个
 		//Users u = session.selectOne("com.hr.dao.UsersMapper.queryOne", 1);
@@ -63,9 +73,9 @@ public class Test1 {
 //		System.out.println(u.getUid());
 		
 		//删除
-		int count = session.delete("com.hr.dao.UsersMapper.delete", 1);
-		session.commit();//增删改需要提交事务
-		System.out.println(count);
+//		int count = session.delete("com.hr.dao.UsersMapper.delete", 1);
+//		session.commit();//增删改需要提交事务
+//		System.out.println(count);
 		
 		
 		//关闭session
